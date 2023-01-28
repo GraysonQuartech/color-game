@@ -67,7 +67,7 @@ h1, h2 {
 .square {
     cursor: pointer;
     display: inline-block;
-    background-color: aqua;
+    background-color: rgb(13, 119, 84);
     width: 90%;
     height: 90%;
     border-radius: 10px;

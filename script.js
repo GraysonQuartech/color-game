@@ -2,74 +2,207 @@
 //MODEL SECTION//
 /////////////////
 
-    //initialize correct-answer-id
+//initialize correct-answer-id
+let correctAnswertId = 0;
 
-    //initialize square object
-        //object contains true or false, Color
+//initialize square object
+    //object contains true or false, Color
+const square = {
+    correctId: false,
+    red: 0,
+    green: 0,
+    blue: 0
+}
 
-    //initialize square array, that contains square objects. ID = index.
+//initialize square array, that will contain square objects. ID = index.
+let squareArray = [];
+
+
+
+
+
 
 //////////////////////
 //CONTROLLER SECTION//
 /////////////////////
 
-    //check answer 
-        //receives index of sqaure clicked from view section
-        //checks if the correct square, using the 'correct' tag in the array 
-        //returns true or false
+//check answer 
+    //receives index of sqaure clicked from view section
+    //checks if the correct square, using the 'correct' tag in the array 
+    //returns true or false
+function checkAnswer(id) {
+    if(squareArray[id.correctId]===true){
+        return true;
+    }
+    else {
+        return false;
+    }
+}
 
-    //reset function
+//returns a random RGB value between 0 and 255
+function getRandomNum(){
+    //console.log('get random number');
+    return Math.floor(Math.random()*(255 + 1));
+}
 
+//function creates a new object instance and returns it
+//is called by reset array
+/*
+function createSquare(correctId, red, green, blue){
+    square.correctId = false;
+    square.red = red;
+    square.green = green;
+    square.blue = blue;
+    return square; 
+}
+*/
 
-    //reset/Fill square array 
-        //loops through the square array, 
-            // sets color by calling generate RGB function
-            // sets all index to false.
-            // call color-square view function to update the visual colors
+//reset/Fill square array 
+    //loops through the square array, 
+        // sets color by calling generate RGB function
+        // sets all index to false.
+        // call color-square view function to update the visual colors
+function resetArray() {
+
+   // console.log("resetting array");
+    let red;
+    let green;
+    let blue;
+    squareArray = [];
+
+    for(let id=0; id < 6; id++){            
+        red = getRandomNum();
+        green = getRandomNum();
+        blue = getRandomNum();
+
+        squareArray.push({correctId: false, red: red, green: green, blue: blue});  //add new instance of square object to the array
+        colorSquare(id, red, green, blue);  //colour the square
+    }
+    //console.log(squareArray);
+}
     
-    //set correct answer 
-        //generate a random number between 0 and 5 this will be the correct ID 
-        //access the RBG at this index and set its truth value to TRUE
-        //set the correct-answer-id variable to this squares ID
+//set correct answer 
+    //generate a random number between 0 and 5 this will be the correct ID 
+    //access the RBG at this index and set its truth value to TRUE
+    //set the correct-answer-id variable to this squares ID
+function setCorrectId(){
+    correctAnswertId = Math.floor(Math.random()*(5 + 1));
+    squareArray[correctAnswertId].correctId = true; 
 
+    console.log("correct index = "+correctAnswertId);
+    console.log("answer key array = ");
+    console.log(squareArray);
+}
     
+
+
+
+
+
+
+
 
 /////////////////
 //VIEW SECTION///
 ////////////////
 
-    //square clicked event function
-        //calls check answer function
-        //if true, 
-            //call display correct function
-            //call reset board function
-        //if false, 
-            //call display incorrect function
-            //call grey out square function
-        //
- 
-    //display correct function
-        //display text over the square 
+//reset board button clicked function
+    //call reset/fill square array function
+    //call color the squares function
+    const restart = document.getElementById("restart").onclick = function() {
+        console.log("restart pushed");
+        resetArray();
+        setCorrectId();
+    }
+    
+    const solution = document.getElementById("solution").onclick = function() {
+        console.log("solution pushed");
+    }
 
-    //display incorrect! function 
-        //display text over the square 
 
-    //grey out square function
-        //use html to grey out the square at the particular ID/index
 
-    //reset board button clicked function
-        //call reset/fill square array function
-        //call color the squares function
+//display correct function
+    //display text over the square 
+function displayCorrect(squareId) {
+    squareId.innerHTML = "Correct!"
+}
 
-    //color-square
-        //called by controller section. receives ID and RGB value 
-        //sets the html square to index color
+//display incorrect! function 
+    //display text over the square 
+function displayIncorrect() {
 
-    //reveal answer button clicked function
-        //use correct-answer-id 
-        //call the display correct square function on that id
+}
 
-    //render
+//grey out square function
+    //use html to grey out the square at the particular ID/index
+function greyOut() {
+
+}
+
+ //reveal answer button clicked function
+//use correct-answer-id 
+ //call the display correct square function on that id
+function revealAnswerClicked(){
+
+}
+
+//square clicked event function
+//calls check answer function
+//if true, 
+    //call display correct function
+    //call reset board function
+//if false, 
+   //call display incorrect function
+    //call grey out square function
+function squareClicked(id) {
+
+    const correctAnswer = checkAnswer(id);
+    if(correctAnswer==true){
+        displayCorrect(id);
+        resetArray();
+        console.log("correct answer clicked");
+    }
+    else{
+        displayIncorrect(id);
+        greyOut(id);
+        console.log("incorrect answer clicked");
+    }
+}
+
+//converts number from 0 to 255
+function toHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+  }
+//color-square
+    //called by controller section. receives ID and RGB value 
+    //sets the html square to index color
+function colorSquare(id, red, green, blue) {
+
+    const squareId = ('square'+id.toString());
+    console.log(squareId);
+    //console.log("#" + toHex(red) + toHex(green) + toHex(blue));
+    (squareId).style.background = "#" + toHex(red) + toHex(green) + toHex(blue);
+}
+
+
+//Detect when a button is clicked
+for (let i = 0; i < 6; i ++) {
+    const squareId = `square${i}`;
+    const square = document.getElementById(squareId);
+
+    square.onclick = function(){
+        squareClicked(i);
+        console.log("square pushed "+squareId);   
+    }
+}
+
+
+    
+     
+
+
+
 
 
 
