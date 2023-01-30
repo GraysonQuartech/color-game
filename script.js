@@ -31,7 +31,8 @@ let squareArray = [];
     //checks if the correct square, using the 'correct' tag in the array 
     //returns true or false
 function checkAnswer(id) {
-    if(squareArray[id.correctId]===true){
+    //console.log(squareArray[id.correctId]);
+    if(squareArray[id].correctId===true){
         return true;
     }
     else {
@@ -45,17 +46,6 @@ function getRandomNum(){
     return Math.floor(Math.random()*(255 + 1));
 }
 
-//function creates a new object instance and returns it
-//is called by reset array
-/*
-function createSquare(correctId, red, green, blue){
-    square.correctId = false;
-    square.red = red;
-    square.green = green;
-    square.blue = blue;
-    return square; 
-}
-*/
 
 //reset/Fill square array 
     //loops through the square array, 
@@ -109,15 +99,15 @@ function setCorrectId(){
 //reset board button clicked function
     //call reset/fill square array function
     //call color the squares function
-    const restart = document.getElementById("restart").onclick = function() {
-        console.log("restart pushed");
-        resetArray();
-        setCorrectId();
-    }
+const restart = document.getElementById("restart").onclick = function() {
+    console.log("restart pushed");
+    resetArray();
+    setCorrectId();
+}
     
-    const solution = document.getElementById("solution").onclick = function() {
-        console.log("solution pushed");
-    }
+const solution = document.getElementById("solution").onclick = function() {
+    console.log("solution pushed");
+}
 
 
 
@@ -157,15 +147,17 @@ function revealAnswerClicked(){
 function squareClicked(id) {
 
     const correctAnswer = checkAnswer(id);
+    console.log("square "+id+" clicked")
     if(correctAnswer==true){
         displayCorrect(id);
         resetArray();
-        console.log("correct answer clicked");
+        setCorrectId();
+        console.log("correct answer" + id + " clicked");
     }
     else{
         displayIncorrect(id);
         greyOut(id);
-        console.log("incorrect answer clicked");
+        console.log("incorrect answer " + id + " clicked");
     }
 }
 
@@ -178,11 +170,8 @@ function toHex(c) {
     //called by controller section. receives ID and RGB value 
     //sets the html square to index color
 function colorSquare(id, red, green, blue) {
-
     const squareId = ('square'+id.toString());
-    console.log(squareId);
-    //console.log("#" + toHex(red) + toHex(green) + toHex(blue));
-    (squareId).style.background = "#" + toHex(red) + toHex(green) + toHex(blue);
+    (document.getElementById(squareId)).style.background = "#" + toHex(red) + toHex(green) + toHex(blue);
 }
 
 
