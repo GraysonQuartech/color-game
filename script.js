@@ -67,6 +67,7 @@ function resetArray() {
 
         squareArray.push({correctId: false, red: red, green: green, blue: blue});  //add new instance of square object to the array
         colorSquare(id, red, green, blue);  //colour the square
+        clearSquareText(id);
     }
     //console.log(squareArray);
 }
@@ -96,6 +97,7 @@ function setCorrectId(){
 //VIEW SECTION///
 ////////////////
 
+
 //reset board button clicked function
     //call reset/fill square array function
     //call color the squares function
@@ -103,24 +105,50 @@ const restart = document.getElementById("restart").onclick = function() {
     console.log("restart pushed");
     resetArray();
     setCorrectId();
+    displayRgb();
+    setTimeout(displayCorrect(false), 5000);
 }
-    
+
+//display the correct answer if this button is clicked    
 const solution = document.getElementById("solution").onclick = function() {
-    console.log("solution pushed");
+    console.log("solution square pushed");
+    for (let i = 0; i < 6; i ++) {
+        if(i != correctAnswertId){
+            document.getElementById(`square${i}`).style.background = 'black';
+        }
+    }
+}
+
+function displayRgb() {
+    const rgb = 'RGB('+squareArray[correctAnswertId].red+','+squareArray[correctAnswertId].green+','+squareArray[correctAnswertId].blue+')';
+    document.getElementById("rgb").innerHTML = rgb;
 }
 
 
 
 //display correct function
     //display text over the square 
-function displayCorrect(squareId) {
-    squareId.innerHTML = "Correct!"
+function displayCorrect(display) {
+
+    if(display==true){
+        console.log('display correct');
+        (document.getElementById("correct")).innerHTML = "Correct!";
+    }
+    else{
+        console.log('hide correct');
+        (document.getElementById("correct")).innerHTML = '';
+    }
 }
 
 //display incorrect! function 
     //display text over the square 
-function displayIncorrect() {
-
+function displayIncorrect(squareId) {
+    squareId = ('square'+squareId.toString()); 
+    document.getElementById(squareId).innerHTML = "Wrong! ";
+}
+function clearSquareText(squareId) {
+    squareId = ('square'+squareId.toString());
+    document.getElementById(squareId).innerHTML = "";
 }
 
 //grey out square function
@@ -129,12 +157,6 @@ function greyOut() {
 
 }
 
- //reveal answer button clicked function
-//use correct-answer-id 
- //call the display correct square function on that id
-function revealAnswerClicked(){
-
-}
 
 //square clicked event function
 //calls check answer function
@@ -149,9 +171,8 @@ function squareClicked(id) {
     const correctAnswer = checkAnswer(id);
     console.log("square "+id+" clicked")
     if(correctAnswer==true){
-        displayCorrect(id);
-        resetArray();
-        setCorrectId();
+        displayCorrect(true);
+        restart();
         console.log("correct answer" + id + " clicked");
     }
     else{
@@ -160,6 +181,8 @@ function squareClicked(id) {
         console.log("incorrect answer " + id + " clicked");
     }
 }
+
+
 
 //converts number from 0 to 255
 function toHex(c) {
@@ -184,6 +207,7 @@ for (let i = 0; i < 6; i ++) {
         squareClicked(i);
         console.log("square pushed "+squareId);   
     }
+ 
 }
 
 

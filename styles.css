@@ -19,6 +19,8 @@
     padding-bottom: 10px;
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
+    font-size: x-larges;
+    word-wrap: break-word;
 }
 
 h1, h2 {
@@ -29,20 +31,24 @@ h1, h2 {
 
 .menu-bar-section {
     background-color: white;
-    color: gray;
+    color: rgb(110, 110, 110);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
+    text-align: center;
 }
 .menu-item {
-    display: block;
-    transition: opacity 0.15s;
+    min-width: 40%;
+    display: inline-block;
+    transition: opacity 0.15s, background-color 0.35s;
     padding: 15px;
 }
 
 .menu-item:hover {
+    background-color: rgb(15, 99, 102);
+    color: aliceblue;
     cursor: pointer;
     opacity: 0.8;
 }
@@ -52,16 +58,27 @@ h1, h2 {
 
 .container{
     height: 400px;
-    padding-left: 15px;
+    position: relative;
+    margin-right: 0px;
+}
+
+.correct {
+    font-size: 300%;
+    z-index: 1;
+    display: inline-block;
+    position: absolute;   
+    right: 30%;
 }
 
 .square-grid-section {
+    position: absolute;
     margin-top: 20px;
     width: 100%;
     height: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
+    text-align: center;
 }
 
 .square {
