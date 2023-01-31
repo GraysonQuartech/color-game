@@ -97,16 +97,19 @@ function setCorrectId(){
 //VIEW SECTION///
 ////////////////
 
+function refreshGame() {
+    resetArray();
+    setCorrectId();
+    displayRgb();
+}
 
 //reset board button clicked function
     //call reset/fill square array function
     //call color the squares function
 const restart = document.getElementById("restart").onclick = function() {
     console.log("restart pushed");
-    resetArray();
-    setCorrectId();
-    displayRgb();
-    setTimeout(displayCorrect(false), 5000);
+    refreshGame();
+    hideCorrect();
 }
 
 //display the correct answer if this button is clicked    
@@ -126,18 +129,14 @@ function displayRgb() {
 
 
 
+
 //display correct function
     //display text over the square 
-function displayCorrect(display) {
-
-    if(display==true){
-        console.log('display correct');
-        (document.getElementById("correct")).innerHTML = "Correct!";
-    }
-    else{
-        console.log('hide correct');
-        (document.getElementById("correct")).innerHTML = '';
-    }
+function displayCorrect() {
+    (document.getElementById("correct")).innerHTML = "Correct!";
+}
+function hideCorrect() {
+    (document.getElementById("correct")).innerHTML = '';
 }
 
 //display incorrect! function 
@@ -171,8 +170,9 @@ function squareClicked(id) {
     const correctAnswer = checkAnswer(id);
     console.log("square "+id+" clicked")
     if(correctAnswer==true){
-        displayCorrect(true);
-        restart();
+        displayCorrect();
+        setTimeout(hideCorrect, 500);
+        refreshGame();
         console.log("correct answer" + id + " clicked");
     }
     else{

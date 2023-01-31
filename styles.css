@@ -10,6 +10,7 @@
 .all-3-sections {
     margin-left: 100px;
     margin-right: 100px;
+    min-width: 600px;
 }
 
 .header-section {
