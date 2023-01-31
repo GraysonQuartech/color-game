@@ -17,6 +17,9 @@ const square = {
 //initialize square array, that will contain square objects. ID = index.
 let squareArray = [];
 
+//set up the game!
+refreshGame();
+hideCorrect();
 
 
 
@@ -134,9 +137,13 @@ function displayRgb() {
     //display text over the square 
 function displayCorrect() {
     (document.getElementById("correct")).innerHTML = "Correct!";
+    (document.getElementById("party")).style.display = "inline-block";
+    (document.getElementById("firework")).style.display = "inline-block";
 }
 function hideCorrect() {
     (document.getElementById("correct")).innerHTML = '';
+    (document.getElementById("party")).style.display = "none";
+    (document.getElementById("firework")).style.display = "none";
 }
 
 //display incorrect! function 
@@ -149,13 +156,6 @@ function clearSquareText(squareId) {
     squareId = ('square'+squareId.toString());
     document.getElementById(squareId).innerHTML = "";
 }
-
-//grey out square function
-    //use html to grey out the square at the particular ID/index
-function greyOut() {
-
-}
-
 
 //square clicked event function
 //calls check answer function
@@ -171,8 +171,9 @@ function squareClicked(id) {
     console.log("square "+id+" clicked")
     if(correctAnswer==true){
         displayCorrect();
-        setTimeout(hideCorrect, 500);
-        refreshGame();
+        solution();
+        setTimeout(hideCorrect, 1000);
+        setTimeout(refreshGame, 1000);
         console.log("correct answer" + id + " clicked");
     }
     else{

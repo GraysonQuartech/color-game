@@ -64,11 +64,29 @@ h1, h2 {
 }
 
 .correct {
-    font-size: 300%;
-    z-index: 1;
+    font-size: 400%;
+    z-index: 3;
     display: inline-block;
     position: absolute;   
     right: 30%;
+    margin: 4px;
+}
+
+.party {
+    z-index: 1;
+    display: inline-block;
+    position: absolute;   
+    right: 5%;
+    height: 500px;
+    opacity: 0.6;
+}
+.firework {
+    z-index: 1;
+    display: inline-block;
+    position: absolute;   
+    left: 5%;
+    height: 500px;
+    opacity: 0.6;
 }
 
 .square-grid-section {
