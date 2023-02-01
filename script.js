@@ -33,21 +33,15 @@ hideCorrect();
     //receives index of sqaure clicked from view section
     //checks if the correct square, using the 'correct' tag in the array 
     //returns true or false
-function checkAnswer(id) {
-    //console.log(squareArray[id.correctId]);
-    if(squareArray[id].correctId===true){
-        return true;
-    }
-    else {
-        return false;
-    }
-}
+const checkAnswer = (id) => squareArray[id].correctId;
+
 
 //returns a random RGB value between 0 and 255
 function getRandomNum(){
     //console.log('get random number');
     return Math.floor(Math.random()*(255 + 1));
 }
+
 
 
 //reset/Fill square array 
@@ -170,6 +164,10 @@ function squareClicked(id) {
     const correctAnswer = checkAnswer(id);
     console.log("square "+id+" clicked")
     if(correctAnswer==true){
+        
+        for(let i=0; i<6; i++){
+            clearSquareText(i);
+        }
         displayCorrect();
         solution();
         setTimeout(hideCorrect, 1000);
@@ -189,7 +187,7 @@ function squareClicked(id) {
 function toHex(c) {
     var hex = c.toString(16);
     return hex.length == 1 ? "0" + hex : hex;
-  }
+}
 //color-square
     //called by controller section. receives ID and RGB value 
     //sets the html square to index color
